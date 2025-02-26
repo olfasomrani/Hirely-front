@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+#GroupBySearch .css-1fdsijx-ValueContainer {
+  width : max-content ;
+}
+#GroupBySearch .css-1hb7zxy-IndicatorsContainer {
+  width : 22px;
+}
+.p-dropdown {
+  border: none !important;
+  width: fit-content !important;
+}
+.p-dropdown:not(.p-disabled).p-focus,
+.css-13cymwt-control,
+.css-t3ipsp-control {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.p-dropdown-items-wrapper li {
+  padding: 0 !important;
+  box-sizing: content-box !important;
+}
+.css-lnmdiq5-menu {
+  transform: translateY(-20px);
+  -webkit-transform: translateY(-20px);
+  -moz-transform: translateY(-20px);
+  -ms-transform: translateY(-20px);
+  -o-transform: translateY(-20px);
+}
+
+#GroupBySearch .css-b62m3t-container{
+width: 100% !important;
+}
+.css-13cymwt-control,
+.css-t3ipsp-control {
+  border: none !important;
+  background: transparent !important;
+}
+::-webkit-scrollbar .p-dropdown-items-wrapper {
+  width: 0px;
+}
+
+.primaryIcon {
+  @apply w-10 h-10 !p-1 text-tw-primary hover:text-primary-darker cursor-pointer;
+}
+
+.tw-card {
+  @apply shadow-lg-center  bg-tw-white dark:bg-bgdark   rounded-max ;
+}
+.mini-card {
+  @apply shadow-lg-center  bg-secondary-light dark:bg-secondary-dark   rounded-max ;
+}
+.tw-text {
+  @apply font-semibold  text-tw-black dark:text-lightgrey ;
+}
+
+
+.react-international-phone-input {
+  @apply w-full h-full;
+  background: transparent !important;
+  border: none !important;
+}
+.react-international-phone-country-selector button {
+  background: transparent !important;
+  margin: 5% 0px !important;
+  height: 90%;
+  border-width: 0px 2px 0px 0px !important;
+}
+.react-international-phone-country-selector ul,
+.css-1nmdiq5-menu {
+  @apply !z-[5] !left-0 !m-0 bg-tw-white dark:bg-bgdark text-tw-black dark:text-grey font-semibold;
+}
+.css-1n6sfyn-MenuList div {
+  @apply hover:text-tw-primary hover:bg-grey;
+}
+
+.css-10wo9uf-option , .css-d7l1ni-option {
+  @apply !bg-transparent hover:!bg-grey;
+
+}
+
+.css-tr4s17-option{
+  @apply !bg-darkgrey text-tw-primary;
+}
+.css-12a83d4-MultiValueRemove{
+@apply !text-black;
+}
+.react-international-phone-country-selector li {
+  @apply hover:text-tw-primary;
+}
+.css-1dimb5e-singleValue,
+.react-international-phone-input {
+  @apply !text-darkgrey dark:!text-lightgrey;
+}
+.react-datepicker-popper{
+  @apply !z-[5];
+}
+.react-datepicker-wrapper {
+  @apply   !block; 
+}
+.page-card {
+  @apply flex flex-col mx-[20px] relative shadow tw-card  p-5 h-full;
+}
+.arrow-btn {
+  clip-path: polygon(0% 0%, 90% 0%, 100% 49%, 100% 51%, 90% 100%, 0% 100%);
+}
+.arrow-btn-inner {
+  clip-path: polygon(0% 0%, 91% 0%, 100% 49%, 100% 51%, 91% 100%, 0% 100%);
+}
+#GroupBySearch .css-1dimb5e-singleValue{
+  @apply !text-black;
+}
+
+.page-title {
+  @apply  text-tw-black  text-base dark:text-lightgrey  p-3 font-bold;
+}
