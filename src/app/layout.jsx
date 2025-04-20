@@ -1,31 +1,42 @@
-// app/layout.js
-import { Inter } from 'next/font/google';
-import './globals.css';
-import 'antd/dist/reset.css';
+"use client";
 
+import { useEffect } from 'react';
+
+import { Inter } from 'next/font/google';
+
+import 'antd/dist/reset.css';
+import './globals.css';
+
+import HeaderComponent from '../components/layouts/Header';
+import SideMenu from '../components/SideMenu';
+import Footer from '../components/layouts/Footer';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: "Recuirtmnt",
-  description: "application sirh de gestion des ressources humaines et systéme des entreprises",
-  icons: {
-    icon: "/path/to/your/favicon.png",
-  },
-  font: {
-    href: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap",
-  },
-};
-
-export const viewport = {
-  initialScale: 1,
-  width: "device-width",
-};
-
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/' || pathname === '/login' || pathname === '/inscription' || pathname === '/notAuthorized';
+
+  // Ajouter la classe "styled" une fois que tout est prêt
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.body.classList.add('styled');
+    }
+  }, []);
+
   return (
-    <html lang="en" className={inter.className}>
-      <body>{children}</body>
-    </html>
+ 
+      <html lang="en">
+        <body className={inter.className}>
+          {!isLoginPage && <HeaderComponent /> }
+          <div style={{ display: 'flex' }}>
+            {!isLoginPage && <SideMenu />}
+            <div style={{ minHeight: '82vh', flex: 1 }}>{children}</div>
+          </div>
+          {!isLoginPage && <Footer />}
+        </body>
+      </html>
+  
   );
 }
