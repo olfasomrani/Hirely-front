@@ -12,42 +12,43 @@ import {
 } from '@ant-design/icons';
 import { Menu, Button, Drawer } from 'antd';
 import classNames from 'classnames';
+import Link from 'next/link';
 
 const menuItems = [
   {
-    key: 'dashboard',
+    key: '1',
     icon: <DashboardOutlined />,
-    label: 'Dashboard',
+    label: <Link href="/admin/accueil">Dashboard</Link>,
   },
   {
-    key: 'users',
+    key: '2',
     icon: <UserOutlined />,
-    label: 'Utilisateurs',
+    label: <Link href="/admin/utilisateurs">Utilisateurs</Link>,
   },
   {
-    key: 'offers',
+    key: '3',
     icon: <SolutionOutlined />,
-    label: 'Offres',
+    label: <Link href="/admin/offres">Offres</Link>,
   },
   {
-    key: 'candidates',
+    key: '4',
     icon: <TeamOutlined />,
-    label: 'Candidats',
+    label: <Link href="/offres">Candidats</Link>,
   },
   {
     key: 'recruiters',
     icon: <UserOutlined />,
-    label: 'Recruteurs',
+    label: <Link href="/admin/offres">Recruteurs</Link>,
   },
   {
     key: 'stats',
     icon: <BarChartOutlined />,
-    label: 'Statistiques',
+    label: <Link href="/admin/statistiques">Statistiques</Link>,
   },
   {
     key: 'settings',
     icon: <SettingOutlined />,
-    label: 'Paramètres',
+    label: <Link href="/admin/parametres">Paramétres</Link>,
   },
 ];
 

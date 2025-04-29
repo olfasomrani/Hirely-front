@@ -8,17 +8,16 @@ import {
     LockOutlined,
     UnlockOutlined,
 } from "@ant-design/icons";
-import { users, deleteUser, updateUser } from "../../../services/users";
-import EditUser from "./formUser";
+import { users } from "../../../services/users";
+// import EditUser from "./formUser";
 import { Row, Col } from "antd";
 // import { useTranslation } from "next-i18next";
-import ProfileImage from "../../../components/ui/preview/ProfileImage";
+// import ProfileImage from "../../../components/ui/preview/ProfileImage";
 
 const { Content } = Layout;
 const { Search } = Input;
 
-function Users() {
-    // const { t, i18n } = useTranslation("main");
+const Users = () =>{
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,15 +60,15 @@ function Users() {
             className: "lg:text-sm text-xs",
             key: "idUser",
         },
-        {
-            title: "Photo",
-            dataIndex: "photo",
-            className: "lg:text-sm text-xs",
-            key: "photo",
-            render: (photo, record) => (
-                <ProfileImage src={photo} gender={record.civility} size={90} preview/>
-            ),
-        },
+        // {
+        //     title: "Photo",
+        //     dataIndex: "photo",
+        //     className: "lg:text-sm text-xs",
+        //     key: "photo",
+        //     render: (photo, record) => (
+        //         <ProfileImage src={photo} gender={record.civility} size={90} preview/>
+        //     ),
+        // },
         {
             title: "Nom",
             className: "lg:text-sm text-xs",
@@ -290,7 +289,8 @@ function Users() {
                         onSuccess={handleUpdateSuccess}
                     />
                 ) : (
-                    <EditUser onSuccessAdd={handleAddSuccess} />
+                    // <EditUser onSuccessAdd={handleAddSuccess} /> 
+                    null
                 )}
             </Modal>
         </Content>

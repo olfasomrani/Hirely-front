@@ -1,4 +1,4 @@
-import api from "./interceptor";
+// import api from "./interceptor";
 import axios from 'axios';
 
 
