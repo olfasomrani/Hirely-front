@@ -1,158 +1,158 @@
-import React, { useState, useEffect, useRef } from "react";
-import { CloseOutlined } from "@ant-design/icons";
-import { SendOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
-import axios from "axios";
+'use client';
+import React, { useState, useRef, useEffect } from 'react';
+import { SendOutlined, CloseOutlined, MessageOutlined } from '@ant-design/icons';
 
-function createClickableLinks(text) {
-  if (typeof text !== "string") return text;
-  const urlRegex = /(https?:\/\/[^\s)]+)/g;
-
-  return text.split(urlRegex).map((part, index) =>
-    urlRegex.test(part) ? (
-      <a
-        key={index}
-        href={part}
-        target="_blank"
-        rel="noreferrer"
-        className="text-blue-500 underline"
-      >
-        {part}
-      </a>
-    ) : (
-      part
-    )
-  );
-}
-
-function ChatBot() {
-  const [msg, addMessage] = useState([]);
-  const chatContainerRef = useRef(null);
-  const [isOpened, setIsOpened] = useState(false);
-  const [newMsg, setNewMsg] = useState("");
-  const { user } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    const chatContainer = chatContainerRef.current;
-    if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+const Chatbot = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { 
+      id: 1, 
+      text: "Bonjour! Comment puis-je vous aider aujourd'hui?", 
+      isBot: true 
     }
-  }, [msg]);
-
-  const sendMessageToAPI = async (message) => {
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/chat`,
-        {
-          message,
-        }
-      );
-      return response.data.message;
-    } catch (error) {
-      console.error("Failed to send message:", error);
-      return "An error occurred. Please try again later.";
-    }
+  ]);
+  const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
+  
+  // Réponses prédéfinies - à remplacer par une vraie API
+  const botResponses = [
+    "Je vais vérifier cela pour vous immédiatement.",
+    "Merci pour votre question. Que puis-je faire d'autre pour vous aider?",
+    "N'hésitez pas à me poser d'autres questions si besoin.",
+    "Cette information est disponible dans votre espace personnel.",
+    "Pour cette demande spécifique, je vous recommande de contacter notre service client au 01 23 45 67 89."
+  ];
+  
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
   };
   
-
-  const handlesendNewMessage = async () => {
-    if (!newMsg.trim()) return;
-
-    addMessage((prev) => [...prev, { id: 0, msg: newMsg }]);
-    setNewMsg("");
-
-    const botResponse = await sendMessageToAPI(newMsg);
-    addMessage((prev) => [...prev, { id: 1, msg: botResponse }]);
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
   };
-
-  const handleInputChange = (event) => {
-    setNewMsg(event.target.value);
+  
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handlesendNewMessage();
-    }
+  
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!input.trim()) return;
+    
+    // Ajouter le message de l'utilisateur
+    const newUserMessage = {
+      id: messages.length + 1,
+      text: input,
+      isBot: false
+    };
+    
+    setMessages([...messages, newUserMessage]);
+    setInput('');
+    setIsTyping(true);
+    
+    // Simuler une réponse du bot après un délai
+    setTimeout(() => {
+      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+      const newBotMessage = {
+        id: messages.length + 2,
+        text: randomResponse,
+        isBot: true
+      };
+      
+      setMessages(prevMessages => [...prevMessages, newBotMessage]);
+      setIsTyping(false);
+    }, 1500);
   };
-
+  
   return (
-    <div className="fixed bottom-20 right-7 z-50">
-      {isOpened ? (
-        <div className="fixed bottom-[390px] right-7 z-50">
-        <div className="w-80 bg-white shadow-lg flex flex-col rounded-lg">
-          <div className="flex items-center justify-between p-4 bg-white border-b">
-            <div className="flex items-center">
-              <div className="p-1 rounded-full bg-primary">
-                <img
-                  src={"/images/logo/logoChatBot.png"}
-                  alt="chatBot Logo"
-                  className="w-10 h-10 rounded-full bg-primary"
-                />
-              </div>
-              <div className="ml-3">
-                <p className="font-semibold text-gray-800">CMDABot</p>
-                <p className="text-sm text-green-500">Online</p>
-              </div>
-            </div>
-            <CloseOutlined
-              className="text-gray-600 cursor-pointer"
-              onClick={() => setIsOpened(false)}
-            />
-          </div>
-          <div
-            ref={chatContainerRef}
-            className="flex-1 overflow-y-auto p-4 space-y-2 max-h-80"
-          >
-            {msg.map((message, index) => (
-              <div
-                key={index}
-                className={`text-sm ${
-                  message.id === 0 ? "text-right" : "text-left"
-                }`}
-              >
-                <p
-                  className={`inline-block p-2 rounded-lg ${
-                    message.id === 0
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200 text-gray-800"
-                  }`}
-                >
-                  {createClickableLinks(message.msg)}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center p-1 border-t bg-gray-50">
-            <textarea
-              placeholder="Tapez votre message ici..."
-              className="flex-1 p-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={newMsg}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-            />
-            <button
-              onClick={handlesendNewMessage}
-              className="ml-2 p-1 bg-primary text-white rounded-lg"
-            >
-              <SendOutlined style={{ fontSize: "20px", color: "white" }} />
-            </button>
-          </div>
-        </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => setIsOpened(!isOpened)}
-          className="p-2 rounded-full bg-primary"
+    <>
+      {/* Bouton flottant pour ouvrir le chat */}
+      {!isOpen && (
+        <button 
+          onClick={toggleChat}
+          className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-[#1e3a8a] to-[#06b6d4] text-white shadow-lg flex items-center justify-center hover:shadow-xl transition-all z-20"
         >
-          <img
-            src={"/images/logo/logoChatBot.png"}
-            alt="Open Chat"
-            className="w-12 h-12 rounded-full"
-          />
+          <MessageOutlined className="text-2xl" />
         </button>
       )}
-    </div>
+      
+      {/* Fenêtre de chat */}
+      {isOpen && (
+        <div className="fixed bottom-6 right-6 w-80 sm:w-96 h-96 bg-white rounded-lg shadow-xl flex flex-col overflow-hidden z-20 border border-gray-200">
+          {/* Header du chat */}
+          <div className="bg-gradient-to-r from-[#1e3a8a] to-[#06b6d4] text-white px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mr-3">
+                <MessageOutlined className="text-blue-800" />
+              </div>
+              <h3 className="font-medium">Assistant</h3>
+            </div>
+            <button onClick={toggleChat} className="hover:text-gray-300">
+              <CloseOutlined />
+            </button>
+          </div>
+          
+          {/* Corps du chat avec les messages */}
+          <div className="flex-1 p-4 overflow-y-auto bg-gray-50">
+            {messages.map((message) => (
+              <div 
+                key={message.id} 
+                className={`mb-4 flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
+              >
+                <div 
+                  className={`max-w-xs rounded-lg px-4 py-2 shadow-sm ${
+                    message.isBot 
+                      ? 'bg-white border border-gray-200 text-gray-800' 
+                      : 'bg-gradient-to-r from-[#1e3a8a] to-[#06b6d4] text-white'
+                  }`}
+                >
+                  {message.text}
+                </div>
+              </div>
+            ))}
+            {isTyping && (
+              <div className="flex justify-start mb-4">
+                <div className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-gray-800 shadow-sm">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+          
+          {/* Zone de saisie */}
+          <form onSubmit={handleSubmit} className="p-3 bg-white border-t border-gray-200">
+            <div className="flex items-center">
+              <input
+                type="text"
+                value={input}
+                onChange={handleInputChange}
+                placeholder="Tapez votre message..."
+                className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <button 
+                type="submit" 
+                className="ml-2 w-10 h-10 rounded-full bg-gradient-to-r from-[#1e3a8a] to-[#06b6d4] text-white flex items-center justify-center"
+                disabled={!input.trim()}
+              >
+                <SendOutlined />
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
   );
-}
+};
 
-export default ChatBot;
+export default Chatbot;

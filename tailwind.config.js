@@ -16,6 +16,11 @@ module.exports = {
       xl: "1536px",
       "2xl": "1536px",
   },
+  safelist: [
+    "bg-green-50",
+    "bg-red-50",
+    "bg-blue-50",
+  ],
     extend: {
       fontFamily: {
         sans: ['Open Sans'],
@@ -30,7 +35,7 @@ module.exports = {
       colors: {
         'tw-primary': '#4AA3A2',
         'primary-darker': '#5C4CBB',
-        bgdark: '#1C232C',
+        'bgdark': '#1C232C',
         'custom-green': 'rgba(55, 171, 101, 0.13)',
         'secondary-dark': '#2F354E',
         'secondary-dark-7': '#222739',

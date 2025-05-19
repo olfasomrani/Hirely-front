@@ -13,8 +13,61 @@ import {
 import { Menu, Button, Drawer } from 'antd';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import useAuth from '../hooks/useAuth';
 
-const menuItems = [
+
+
+const SideMenu = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const user = useSelector((state) => state.auth);
+  console.log("useer", user);
+  const userRole = user.user?.role;
+console.log("ollfaa", userRole );
+const menuItems = (userRole === "recruteur" ?  [
+  {
+    key: '1',
+    icon: <DashboardOutlined />,
+    label: <Link href="/entreprise/accueil">Dashboard</Link>,
+  },
+  {
+    key: '2',
+    icon: <UserOutlined />,
+    label: <Link href="/entreprise/offres">Offres</Link>,
+  },
+  {
+    key: 'stats',
+    icon: <BarChartOutlined />,
+    label: <Link href="/entreprise/statistiques">Statistiques</Link>,
+  },
+  {
+    key: 'settings',
+    icon: <SettingOutlined />,
+    label: <Link href="/entreprise/parametres">Paramétres</Link>,
+  },
+] : (userRole === "candidat" ?  [
+  {
+    key: '1',
+    icon: <DashboardOutlined />,
+    label: <Link href="/admin/accueil">Dashboard</Link>,
+  },
+  {
+    key: '2',
+    icon: <UserOutlined />,
+    label: <Link href="/admin/utilisateurs">Formations</Link>,
+  },
+  {
+    key: '3',
+    icon: <SolutionOutlined />,
+    label: <Link href="/admin/offres">Builder</Link>,
+  },
+  {
+    key: 'settings',
+    icon: <SettingOutlined />,
+    label: <Link href="/admin/parametres">Paramétres</Link>,
+  },
+] : [
   {
     key: '1',
     icon: <DashboardOutlined />,
@@ -31,16 +84,6 @@ const menuItems = [
     label: <Link href="/admin/offres">Offres</Link>,
   },
   {
-    key: '4',
-    icon: <TeamOutlined />,
-    label: <Link href="/offres">Candidats</Link>,
-  },
-  {
-    key: 'recruiters',
-    icon: <UserOutlined />,
-    label: <Link href="/admin/offres">Recruteurs</Link>,
-  },
-  {
     key: 'stats',
     icon: <BarChartOutlined />,
     label: <Link href="/admin/statistiques">Statistiques</Link>,
@@ -50,15 +93,12 @@ const menuItems = [
     icon: <SettingOutlined />,
     label: <Link href="/admin/parametres">Paramétres</Link>,
   },
-];
+] ));
 
-const SideMenu = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+
 
   return (
     <>
-      {/* Mobile toggle button */}
       <div className="md:hidden p-2">
         <Button
           type="text"
@@ -66,8 +106,6 @@ const SideMenu = () => {
           onClick={() => setMobileOpen(true)}
         />
       </div>
-
-      {/* Desktop sidebar */}
       <div
         className={classNames(
           'hidden md:block h-screen bg-white border-r shadow-md transition-all duration-300',
@@ -89,8 +127,6 @@ const SideMenu = () => {
           items={menuItems}
         />
       </div>
-
-      {/* Mobile drawer */}
       <Drawer
         title="Menu"
         placement="left"
