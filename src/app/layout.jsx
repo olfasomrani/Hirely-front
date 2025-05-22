@@ -17,8 +17,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === '/' || pathname === '/login' || pathname === '/inscription' || pathname === '/notAuthorized';
-
+  const isLoginPage = pathname === '/' || pathname === '/login' || pathname === '/inscription' || pathname === '/notAuthorized' || pathname === '/accueil';
+  const firstPageCandidate = pathname === '/candidat/accueil';
   useEffect(() => {
     if (typeof window !== 'undefined') {
       document.body.classList.add('styled');
@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <ReduxProvider>
           {!isLoginPage && <HeaderComponent />}
           <div style={{ display: 'flex' }}>
-            {!isLoginPage && <SideMenu />}
+            {!isLoginPage && !firstPageCandidate && <SideMenu />}
             <div style={{ minHeight: '82vh', flex: 1 }}>{children}</div>
           </div>
           {!isLoginPage && <Footer />}

@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from './login/page';
+import Acceuil from './accueil/page';
 
 export default function Home() {
   return (
-      <Login />
+      <Acceuil />
   );
 }

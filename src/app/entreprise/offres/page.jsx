@@ -1,11 +1,16 @@
 "use client";
 import { Card, Tag, Button, Modal, notification } from "antd";
-import { EyeOutlined, EditOutlined, DeleteOutlined, PlusOutlined  } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import { offres, deleteOffre } from "../../../services/offres";
 import { useState, useEffect } from "react";
 import OffreForm from "./offreForm";
-import dayjs from 'dayjs';
-
+import dayjs from "dayjs";
+import JobOffersCard from "../../../components/home/jobOffer";
 
 const offress = [
   {
@@ -55,11 +60,10 @@ const OffresPage = () => {
       setError("Échec de l'affichage");
     }
   };
-  
+
   useEffect(() => {
     fetchOffres();
   }, []);
-  
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -113,7 +117,7 @@ const OffresPage = () => {
     setIsModalOpen(false);
   };
 
-  const handleUpdateSuccess = async() => {
+  const handleUpdateSuccess = async () => {
     await fetchOffres();
     setIsModalOpen(false);
     notification.success({
@@ -123,7 +127,7 @@ const OffresPage = () => {
     });
   };
 
-  const handleAddSuccess = async() => {
+  const handleAddSuccess = async () => {
     await fetchOffres();
     notification.success({
       message: "Succès",
@@ -132,7 +136,6 @@ const OffresPage = () => {
     });
     setIsModalOpen(false);
   };
-
 
   const getTagColor = (statut) => {
     switch (statut) {
@@ -160,20 +163,20 @@ const OffresPage = () => {
     console.log("Voir les candidats pour l'offre", id);
   };
 
- return (
-  <div className="p-6">
-    <div className="flex justify-end mb-4">
-      <Button
-        type="button"
-        className="bg-[#06b6d4] text-black rounded-full flex items-center justify-center"
-        icon={<PlusOutlined />}
-        onClick={() => showModal(null)}
-      >
-        Ajouter
-      </Button>
-    </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {data.map((offre) => (
+  return (
+    <div className="p-6">
+      <div className="flex justify-end mb-4">
+        <Button
+          type="button"
+          className="bg-[#06b6d4] text-black rounded-full flex items-center justify-center"
+          icon={<PlusOutlined />}
+          onClick={() => showModal(null)}
+        >
+          Ajouter
+        </Button>
+      </div>
+      <div>
+        {/* {data.map((offre) => (
         <div
           key={offre.id}
           className={`rounded-lg shadow-md p-1 ${getBackgroundColor(offre?.statut)}`}
@@ -205,17 +208,24 @@ const OffresPage = () => {
             <p>👥 Candidats : {offre.candidats}</p>
           </Card>
         </div>
-      ))}
-       <Modal open={isModalOpen} onCancel={handleModalCancel} footer={null}>
-        <OffreForm
-          offreId={selectedOffreId}
-          onSuccess={handleUpdateSuccess}
-          onSuccessAdd={handleAddSuccess}
+      ))} */}
+        <JobOffersCard
+          offres={data}
+          getActions={(offre) => [
+            <EyeOutlined key="view" onClick={() => handleVoirCandidats(offre.id)} />,
+            <EditOutlined key="edit" onClick={() => showModal(offre.id)} />,
+            <DeleteOutlined key="delete" onClick={() => showDeleteConfirm(offre.id)} />,
+          ]}
         />
-      </Modal>
+        <Modal open={isModalOpen} onCancel={handleModalCancel} footer={null}>
+          <OffreForm
+            offreId={selectedOffreId}
+            onSuccess={handleUpdateSuccess}
+            onSuccessAdd={handleAddSuccess}
+          />
+        </Modal>
+      </div>
     </div>
-  </div>
-);
-
-}
-export default  OffresPage;
+  );
+};
+export default OffresPage;
