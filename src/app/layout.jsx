@@ -17,7 +17,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === '/' || pathname === '/login' || pathname === '/inscription' || pathname === '/notAuthorized' || pathname === '/accueil';
+  const isLoginPage = pathname === '/' || pathname === '/login' || pathname === '/inscription' || pathname === '/notAuthorized' || pathname === '/accueil' || pathname === '/formulaire';
   const firstPageCandidate = pathname === '/candidat/accueil';
   useEffect(() => {
     if (typeof window !== 'undefined') {
