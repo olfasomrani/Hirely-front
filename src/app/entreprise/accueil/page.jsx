@@ -55,8 +55,6 @@ export default function AccueilRecruteur() {
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-2xl font-bold">Bienvenue, Recruteur 👋</h1>
-
-      {/* Statistiques */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((item, index) => (
           <Card key={index}>
@@ -64,19 +62,13 @@ export default function AccueilRecruteur() {
           </Card>
         ))}
       </div>
-
-      {/* Actions rapides */}
       <div className="flex justify-between items-center mt-4">
         <h2 className="text-xl font-semibold">Dernières Offres</h2>
         <Button type="primary" icon={<PlusOutlined />}>
           Nouvelle offre
         </Button>
       </div>
-
-      {/* Tableau des offres */}
       <Table dataSource={offres} columns={columns} pagination={false} />
-
-      {/* Calendrier ou prochains entretiens */}
       <div className="mt-6">
         <h2 className="text-xl font-semibold mb-2">Calendrier des entretiens</h2>
         <Calendar fullscreen={false} />

@@ -245,7 +245,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-[#1e3a8a] to-[#06b6d4] text-white text-center py-6">
         <p>
-          &copy; {new Date().getFullYear()} RecrutementPro. Tous droits
+          &copy; {new Date().getFullYear()} Talent Sphére. Tous droits
           réservés.
         </p>
       </footer>
