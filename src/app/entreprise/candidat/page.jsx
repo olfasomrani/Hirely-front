@@ -7,22 +7,7 @@ import dayjs from 'dayjs';
 
 // Exemple de données des candidats avec score
 const candidatsData = [
-  {
-    key: 1,
-    nom: "Jean Dupont",
-    cv: "CV_Jean.pdf",
-    email: "jean.dupont@example.com",
-    statut: "En cours",
-    score: 85,
-  },
-  {
-    key: 2,
-    nom: "Marie Martin",
-    cv: "CV_Marie.pdf",
-    email: "marie.martin@example.com",
-    statut: "Entretien",
-    score: 90,
-  },
+ 
   {
     key: 3,
     nom: "Ahlem othmen",
@@ -31,6 +16,15 @@ const candidatsData = [
     statut: "nouveau",
     score: 91,
   },
+    {
+    key: 3,
+    nom: "intissar boubaker",
+    cv: "intissar.pdf",
+    email: "intissr@gmail.com",
+    statut: "nouveau",
+    score: 81,
+  },
+
 
 ];
 
