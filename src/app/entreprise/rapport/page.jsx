@@ -15,14 +15,9 @@ export default function CustomReports() {
       { title: "Candidatures en attente", value: 3 },
     ],
     offres: [
-      { title: "Offres publiées", value: 4 },
-      { title: "Offres expirées", value: 10 },
-      { title: "Offres actives", value: 35 },
-    ],
-    utilisateurs: [
-      { title: "Recruteurs enregistrés", value: 18 },
-      { title: "Candidats inscrits", value: 20 },
-      { title: "Administrateurs", value: 1 },
+      { title: "Offres publiées", value: 7 },
+      { title: "Offres expirées", value: 0 },
+      { title: "Offres actives", value: 7 },
     ],
   };
 

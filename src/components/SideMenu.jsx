@@ -58,6 +58,11 @@ const SideMenu = () => {
             icon: <BarChartOutlined />,
             label: <Link href="/entreprise/statistiques">Statistiques</Link>,
           },
+           {
+            key: 'stats',
+            icon: <BarChartOutlined />,
+            label: <Link href="/entreprise/rapport">Rapport</Link>,
+          },
           {
             key: 'settings',
             icon: <SettingOutlined />,
