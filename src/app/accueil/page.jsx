@@ -68,7 +68,7 @@ export default function HomePage() {
           <a href="/login" className="hover:underline">
             Connexion
           </a>
-          <a href="/register" className="hover:underline">
+          <a href="/inscription" className="hover:underline">
             Inscription
           </a>
         </nav>

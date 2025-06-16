@@ -9,6 +9,7 @@ import {
   BarChartOutlined,
   MenuOutlined,
   CloseOutlined,
+  ProfileOutlined,
 } from '@ant-design/icons';
 import { Menu, Button, Drawer } from 'antd';
 import classNames from 'classnames';
@@ -50,22 +51,22 @@ const menuItems = (userRole === "recruteur" ?  [
   {
     key: '1',
     icon: <DashboardOutlined />,
-    label: <Link href="/admin/accueil">Dashboard</Link>,
+    label: <Link href="/candidat/accueil">Dashboard</Link>,
   },
   {
     key: '2',
-    icon: <UserOutlined />,
-    label: <Link href="/admin/utilisateurs">Formations</Link>,
+    icon: <ProfileOutlined />,
+    label: <Link href="/candidat/profil">Profil</Link>,
   },
   {
     key: '3',
     icon: <SolutionOutlined />,
-    label: <Link href="/admin/offres">Builder</Link>,
+    label: <Link href="/candidat/offres">Builder</Link>,
   },
   {
     key: 'settings',
     icon: <SettingOutlined />,
-    label: <Link href="/admin/parametres">Paramétres</Link>,
+    label: <Link href="/candidat/parametres">Paramétres</Link>,
   },
 ] : [
   {
