@@ -148,7 +148,7 @@ const OnboardingWizard = () => {
               type="primary" 
               key="profile" 
               className="bg-gradient-to-r from-blue-800 to-cyan-600 border-none"
-              onClick={() => window.location.href = '/candidate/profile'}
+              onClick={() => window.location.href = '/candidat/profil'}
             >
               Voir mon profil
             </Button>,

@@ -1,14 +1,16 @@
 'use client';
-import React from 'react';
-import { Card, Button, Row, Col, Typography, Tag } from 'antd';
+import React, { useState } from 'react';
 import {
-  RocketOutlined,
-  EnvironmentOutlined,
-  DollarOutlined,
-  BankOutlined,
+  Card, Button, Row, Col, Typography, Tag, Modal,
+  Input, message, Upload, notification
+} from 'antd';
+import {
+  RocketOutlined, EnvironmentOutlined, DollarOutlined,
+  BankOutlined, UploadOutlined
 } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
+const { TextArea } = Input;
 
 const offres = [
   {
@@ -44,11 +46,53 @@ const offres = [
 ];
 
 const OffresCandidat = () => {
+  const [selectedOffre, setSelectedOffre] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [motivation, setMotivation] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [nom, setNom] = useState('');
+  const [cvFile, setCvFile] = useState(null);
+
+  const handlePostulerClick = (offre) => {
+    setSelectedOffre(offre);
+    setIsModalOpen(true);
+  };
+
+  const handleEnvoyerCandidature = () => {
+    if (!prenom || !nom || !cvFile) {
+      message.error('Veuillez remplir tous les champs requis et uploader votre CV.');
+      return;
+    }
+
+    console.log('Candidature envoyée pour :', selectedOffre);
+    console.log('Nom complet :', prenom, nom);
+    console.log('Lettre de motivation :', motivation);
+    console.log('Fichier CV :', cvFile);
+
+    notification.success({
+      message: 'Candidature envoyée !',
+      description: `Votre candidature pour le poste de ${selectedOffre?.titre} chez ${selectedOffre?.entreprise} a bien été envoyée.`,
+      placement: 'topRight',
+    });
+
+    setIsModalOpen(false);
+    setMotivation('');
+    setPrenom('');
+    setNom('');
+    setCvFile(null);
+  };
+
+  const handleCvUpload = (file) => {
+    setCvFile(file);
+    return false;
+  };
+
   return (
     <div className="min-h-screen px-6 py-10 bg-white">
-      <Title level={2} style={{ color: 'white', textAlign: 'center', marginBottom: 40 }}>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: 40 }}>
         Nos Offres d'Emploi
       </Title>
+
       <Row gutter={[24, 24]}>
         {offres.map((offre) => (
           <Col xs={24} sm={12} md={8} key={offre.id}>
@@ -67,24 +111,50 @@ const OffresCandidat = () => {
               }
             >
               <Title level={4}>{offre.titre}</Title>
-              <Paragraph>
-                <BankOutlined /> <strong>{offre.entreprise}</strong>
-              </Paragraph>
-              <Paragraph>
-                <EnvironmentOutlined /> {offre.localisation}
-              </Paragraph>
-              <Paragraph>
-                <DollarOutlined /> {offre.salaire}
-              </Paragraph>
+              <Paragraph><BankOutlined /> <strong>{offre.entreprise}</strong></Paragraph>
+              <Paragraph><EnvironmentOutlined /> {offre.localisation}</Paragraph>
+              <Paragraph><DollarOutlined /> {offre.salaire}</Paragraph>
               <Tag color="blue">{offre.type}</Tag>
               <Paragraph>{offre.description}</Paragraph>
-              <Button type="primary" icon={<RocketOutlined />} block>
+              <Button type="primary" icon={<RocketOutlined />} block onClick={() => handlePostulerClick(offre)}>
                 Postuler
               </Button>
             </Card>
           </Col>
         ))}
       </Row>
+
+      <Modal
+        title={`Postuler à : ${selectedOffre?.titre}`}
+        open={isModalOpen}
+        onOk={handleEnvoyerCandidature}
+        onCancel={() => setIsModalOpen(false)}
+        okText="Envoyer"
+        cancelText="Annuler"
+      >
+        <Input
+          placeholder="Prénom"
+          value={prenom}
+          onChange={(e) => setPrenom(e.target.value)}
+          style={{ marginBottom: 12 }}
+        />
+        <Input
+          placeholder="Nom"
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+          style={{ marginBottom: 12 }}
+        />
+        <TextArea
+          rows={4}
+          value={motivation}
+          onChange={(e) => setMotivation(e.target.value)}
+          placeholder="Lettre de motivation (optionnel)"
+          style={{ marginBottom: 12 }}
+        />
+        <Upload beforeUpload={handleCvUpload} fileList={cvFile ? [cvFile] : []}>
+          <Button icon={<UploadOutlined />}>Téléverser votre CV</Button>
+        </Upload>
+      </Modal>
     </div>
   );
 };

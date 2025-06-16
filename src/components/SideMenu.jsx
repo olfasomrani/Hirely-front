@@ -14,89 +14,102 @@ import {
 import { Menu, Button, Drawer } from 'antd';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import useAuth from '../hooks/useAuth';
-
-
+import { usePathname } from 'next/navigation';
 
 const SideMenu = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const user = useSelector((state) => state.auth);
-  console.log("useer", user);
-  const userRole = user.user?.role;
-console.log("ollfaa", userRole );
-const menuItems = (userRole === "recruteur" ?  [
-  {
-    key: '1',
-    icon: <DashboardOutlined />,
-    label: <Link href="/entreprise/accueil">Dashboard</Link>,
-  },
-  {
-    key: '2',
-    icon: <UserOutlined />,
-    label: <Link href="/entreprise/offres">Offres</Link>,
-  },
-  {
-    key: 'stats',
-    icon: <BarChartOutlined />,
-    label: <Link href="/entreprise/statistiques">Statistiques</Link>,
-  },
-  {
-    key: 'settings',
-    icon: <SettingOutlined />,
-    label: <Link href="/entreprise/parametres">Paramétres</Link>,
-  },
-] : (userRole === "candidat" ?  [
-  {
-    key: '1',
-    icon: <DashboardOutlined />,
-    label: <Link href="/candidat/accueil">Dashboard</Link>,
-  },
-  {
-    key: '2',
-    icon: <ProfileOutlined />,
-    label: <Link href="/candidat/profil">Profil</Link>,
-  },
-  {
-    key: '3',
-    icon: <SolutionOutlined />,
-    label: <Link href="/candidat/offres">Builder</Link>,
-  },
-  {
-    key: 'settings',
-    icon: <SettingOutlined />,
-    label: <Link href="/candidat/parametres">Paramétres</Link>,
-  },
-] : [
-  {
-    key: '1',
-    icon: <DashboardOutlined />,
-    label: <Link href="/admin/accueil">Dashboard</Link>,
-  },
-  {
-    key: '2',
-    icon: <UserOutlined />,
-    label: <Link href="/admin/utilisateurs">Utilisateurs</Link>,
-  },
-  {
-    key: '3',
-    icon: <SolutionOutlined />,
-    label: <Link href="/admin/offres">Offres</Link>,
-  },
-  {
-    key: 'stats',
-    icon: <BarChartOutlined />,
-    label: <Link href="/admin/statistiques">Statistiques</Link>,
-  },
-  {
-    key: 'settings',
-    icon: <SettingOutlined />,
-    label: <Link href="/admin/parametres">Paramétres</Link>,
-  },
-] ));
+  const pathname = usePathname();
 
+  // Récupération du rôle à partir de l'URL
+  let userRole = '';
+  if (pathname.startsWith('/candidat')) {
+    userRole = 'candidat';
+  } else if (pathname.startsWith('/entreprise')) {
+    userRole = 'recruteur';
+  } else if (pathname.startsWith('/admin')) {
+    userRole = 'admin';
+  }
 
+  const menuItems =
+    userRole === 'recruteur'
+      ? [
+          {
+            key: '1',
+            icon: <DashboardOutlined />,
+            label: <Link href="/entreprise/accueil">Dashboard</Link>,
+          },
+          {
+            key: '2',
+            icon: <UserOutlined />,
+            label: <Link href="/entreprise/offres">Offres</Link>,
+          },
+          {
+            key: 'stats',
+            icon: <BarChartOutlined />,
+            label: <Link href="/entreprise/statistiques">Statistiques</Link>,
+          },
+          {
+            key: 'settings',
+            icon: <SettingOutlined />,
+            label: <Link href="/entreprise/parametres">Paramétres</Link>,
+          },
+        ]
+      : userRole === 'candidat'
+      ? [
+          {
+            key: '1',
+            icon: <DashboardOutlined />,
+            label: <Link href="/candidat/accueil">Dashboard</Link>,
+          },
+          {
+            key: '2',
+            icon: <ProfileOutlined />,
+            label: <Link href="/candidat/profil">Profil</Link>,
+          },
+          {
+            key: '3',
+            icon: <SolutionOutlined />,
+            label: <Link href="/candidat/cvBuilder">Builder</Link>,
+          },
+               {
+            key: '4',
+            icon: <SolutionOutlined />,
+            label: <Link href="/candidat/offres">offres</Link>,
+          },
+          {
+            key: 'settings',
+            icon: <SettingOutlined />,
+            label: <Link href="/candidat/parametres">Paramétres</Link>,
+          },
+        ]
+      : [
+          {
+            key: '1',
+            icon: <DashboardOutlined />,
+            label: <Link href="/admin/accueil">Dashboard</Link>,
+          },
+          {
+            key: '2',
+            icon: <UserOutlined />,
+            label: <Link href="/admin/utilisateurs">Utilisateurs</Link>,
+          },
+          {
+            key: '3',
+            icon: <SolutionOutlined />,
+            label: <Link href="/admin/offres">Offres</Link>,
+          },
+          {
+            key: 'stats',
+            icon: <BarChartOutlined />,
+            label: <Link href="/admin/statistiques">Statistiques</Link>,
+          },
+          {
+            key: 'settings',
+            icon: <SettingOutlined />,
+            label: <Link href="/admin/parametres">Paramétres</Link>,
+          },
+        ];
 
   return (
     <>

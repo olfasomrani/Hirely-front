@@ -43,12 +43,12 @@ const { TabPane } = Tabs;
 const profileData = {
   user: {
     id: 1,
-    name: "ahlem inst",
-    title: "Développeur Full Stack ",
-    email: "ahlem.be@email.com",
-    phone: "+216 XX XXX XXX",
+    name: "intissar boubaker",
+    title: "stagiaire ",
+    email: "intissar.be@email.com",
+    phone: "+216 89999",
     location: "Tunis, Tunisie",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+    avatar: "https://static.vecteezy.com/ti/vecteur-libre/p1/26530349-anonyme-la-personne-silhouette-icone-vecteur-vectoriel.jpg",
     coverImage: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=300&fit=crop",
     bio: "Passionné par le développement web moderne avec plus de 5 ans d'expérience. Spécialisé dans React, NestJS et les architectures cloud. Toujours à la recherche de nouveaux défis techniques.",
     joinDate: "Janvier 2020",
@@ -61,59 +61,15 @@ const profileData = {
     { name: "NestJS", level: 90, color: "#E0234E" },
     { name: "TypeScript", level: 88, color: "#3178C6" },
     { name: "Node.js", level: 85, color: "#339933" },
-    { name: "PostgreSQL", level: 80, color: "#4169E1" },
-    { name: "Docker", level: 75, color: "#2496ED" }
-  ],
-  projects: [
-    {
-      id: 1,
-      name: "E-commerce Platform",
-      description: "Plateforme e-commerce complète avec React et NestJS",
-      tech: ["React", "NestJS", "PostgreSQL"],
-      status: "Terminé",
-      date: "2024"
-    },
-    {
-      id: 2,
-      name: "Task Management App",
-      description: "Application de gestion de tâches collaboratives",
-      tech: ["Vue.js", "Express", "MongoDB"],
-      status: "En cours",
-      date: "2024"
-    },
-    {
-      id: 3,
-      name: "Portfolio Website",
-      description: "Site portfolio responsive avec animations",
-      tech: ["Next.js", "TailwindCSS", "Framer Motion"],
-      status: "Terminé",
-      date: "2023"
-    }
   ],
   experience: [
     {
-      title: "Développeur Full Stack Senior",
-      company: "TechCorp Solutions",
-      period: "2022 - Présent",
-      description: "Développement d'applications web modernes, encadrement d'équipe junior"
+      title: "Stagiaire",
+      company: "entreprise",
+      period: "2025 - Présent",
+      description: "Développement d'applications web modernes"
     },
-    {
-      title: "Développeur Frontend",
-      company: "StartupTech",
-      period: "2020 - 2022",
-      description: "Création d'interfaces utilisateur avec React et Vue.js"
-    },
-    {
-      title: "Développeur Junior",
-      company: "WebAgency",
-      period: "2019 - 2020",
-      description: "Premier poste, développement de sites web et applications"
-    }
-  ],
-  achievements: [
-    { title: "Certification AWS", date: "2023", icon: "🏆" },
-    { title: "Meilleur projet de l'année", date: "2022", icon: "🥇" },
-    { title: "Formation React avancée", date: "2021", icon: "📚" }
+
   ],
   socialLinks: {
     linkedin: "https://linkedin.com/in/ahmed-bensalah",
@@ -269,30 +225,7 @@ const ProfileDesign = () => {
             ))}
           </div>
         </Card>
-
-        <Card title="Projets récents">
-          <div className="space-y-4">
-            {profileData.projects.map((project) => (
-              <div key={project.id} className="border-l-4 border-blue-500 pl-4 py-2">
-                <div className="flex justify-between items-start mb-2">
-                  <Title level={5} className="mb-1">{project.name}</Title>
-                  <Tag color={project.status === 'Terminé' ? 'green' : 'blue'}>
-                    {project.status}
-                  </Tag>
-                </div>
-                <Paragraph className="text-gray-600 mb-2">
-                  {project.description}
-                </Paragraph>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <Tag key={i} color="geekblue">{tech}</Tag>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </Col>
+</Col>
 
       <Col xs={24} lg={8}>
         <Card title="Informations de contact" className="mb-6">
@@ -332,20 +265,6 @@ const ProfileDesign = () => {
               size="large"
               className="text-blue-400 hover:bg-blue-50"
             />
-          </div>
-        </Card>
-
-        <Card title="Réalisations">
-          <div className="space-y-3">
-            {profileData.achievements.map((achievement, index) => (
-              <div key={index} className="flex items-center space-x-3">
-                <span className="text-2xl">{achievement.icon}</span>
-                <div>
-                  <Text strong className="block">{achievement.title}</Text>
-                  <Text className="text-gray-500 text-sm">{achievement.date}</Text>
-                </div>
-              </div>
-            ))}
           </div>
         </Card>
       </Col>

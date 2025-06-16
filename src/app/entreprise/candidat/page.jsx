@@ -13,7 +13,6 @@ const candidatsData = [
     cv: "CV_Jean.pdf",
     email: "jean.dupont@example.com",
     statut: "En cours",
-    dateCandidature: "2025-05-01",
     score: 85,
   },
   {
@@ -22,10 +21,17 @@ const candidatsData = [
     cv: "CV_Marie.pdf",
     email: "marie.martin@example.com",
     statut: "Entretien",
-    dateCandidature: "2025-04-15",
     score: 90,
   },
-  // Autres candidats...
+  {
+    key: 3,
+    nom: "Ahlem othmen",
+    cv: "CV_ahlem.pdf",
+    email: "ahlem.othemn@gmail.com",
+    statut: "nouveau",
+    score: 91,
+  },
+
 ];
 
 const CandidatsPage = () => {
