@@ -151,7 +151,7 @@ const OnboardingWizard = () => {
               onClick={() => window.location.href = '/candidat/profil'}
             >
               Voir mon profil
-            </Button>
+            </Button>,
           ]}
         />
       </div>

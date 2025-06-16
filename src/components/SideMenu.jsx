@@ -45,6 +45,11 @@ const SideMenu = () => {
             label: <Link href="/entreprise/offres">Offres</Link>,
           },
           {
+            key: '2',
+            icon: <ProfileOutlined />,
+            label: <Link href="/entreprise/entretien">Entretien</Link>,
+          },
+          {
             key: 'stats',
             icon: <BarChartOutlined />,
             label: <Link href="/entreprise/statistiques">Statistiques</Link>,
