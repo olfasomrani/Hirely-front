@@ -48,6 +48,10 @@ const SideMenu = () => {
             key: '2',
             icon: <ProfileOutlined />,
             label: <Link href="/entreprise/entretien">Entretien</Link>,
+          },{
+            key: '2',
+            icon: <UserOutlined />,
+            label: <Link href="/entreprise/candidat">Candidat</Link>,
           },
           {
             key: 'stats',
